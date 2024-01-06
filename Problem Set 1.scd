@@ -167,12 +167,11 @@ x.free;
 (
 {
 	var sig, freq;
-	freq = abs(SinOsc.ar(0.1)) * 750 + 500;
+	freq = abs(LFSaw.ar(0.1)) * 750 + 500;
 	sig = LFTri.ar(freq, 0.0, 0.2);
 	sig!2;
 }.play;
 )
-
 
 
 //----------
@@ -193,8 +192,12 @@ https://uofi.box.com/s/vi5qb9h4yh2uv6mcn9dni7ienjj3p318
 Create and play a UGen function that emulates this sound. There are different approaches, and you can take some creative liberties, but this can be done with one WhiteNoise generator and two LFPulse generators.
 */
 
-
-
-
-
-
+(
+{
+	var sig, freqPulse, pulse;
+	freqPulse = LFPulse.ar(0.2, 0.0, 0.2).range(8, 20);
+	pulse = LFPulse.ar(freqPulse, 0.0, 0.3).range(0, 1);
+	sig = WhiteNoise.ar(pulse) * 0.5;
+	sig!2;
+}.play
+)
